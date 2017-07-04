@@ -31,6 +31,40 @@ namespace Ch11CardLib
         }
 
         /// <summary>
+        /// Nondefault constructor. Allows aces to be set high.
+        /// "this" is used so that the default constructor is called before the nondefault one.
+        /// </summary>
+        /// <param name="isAceHigh">Flag indicating whether aces should be set high.</param>
+        public Deck(bool isAceHigh) : this()
+        {
+            Card.isAceHigh = isAceHigh;
+        }
+
+        /// <summary>
+        /// Nondefault contructor. Allows a trump suit to be used.
+        /// </summary>
+        /// <param name="useTrumps">Flag indicating whether to use a trump suit.</param>
+        /// <param name="trump">The Suit to use as trump.</param>
+        public Deck(bool useTrumps, Suit trump) : this()
+        {
+            Card.useTrumps = useTrumps;
+            Card.trump = trump;
+        }
+
+        /// <summary>
+        /// Nondefault constructor. Allows aces to be set high and a trump suit to be used.
+        /// </summary>
+        /// <param name="isAceHigh">Flag indicating whether aces should be set high.</param>
+        /// <param name="useTrumps">Flag indicating whether to use a trump suit.</param>
+        /// <param name="trump">The Suit to use as trump.</param>
+        public Deck(bool isAceHigh, bool useTrumps, Suit trump) : this()
+        {
+            Card.isAceHigh = isAceHigh;
+            Card.useTrumps = useTrumps;
+            Card.trump = trump;
+        }
+
+        /// <summary>
         /// This constructor allows us to directly modify the cards contained in the deck.
         /// Since its only purpose is to simplify the implementation of the Clone() method,
         /// it's declared private.
