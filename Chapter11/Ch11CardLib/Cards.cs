@@ -20,6 +20,8 @@ namespace Ch11CardLib
             List.Remove(newCard);
         }
 
+        // Define an indexer, which makes it easier to retrieve a card based on its position.
+        // This is used in the GetCard() and Shuffle() methods of the Deck class.
         public Card this[int cardIndex]
         {
             get { return (Card)List[cardIndex]; }
