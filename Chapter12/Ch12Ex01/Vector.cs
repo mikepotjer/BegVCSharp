@@ -69,6 +69,22 @@ namespace Ch12Ex01
         public static Vector operator -(Vector op1) => new Vector(-op1.R, op1.Theta);
 
         public static Vector operator -(Vector op1, Vector op2) => op1 + (-op2);
+
+        // Exercise 12.1
+        // The dot product of 2 vectors is the product of their magnitudes multiplied by the cosine
+        // of the angle between them.
+        public static double? operator *(Vector op1, Vector op2)
+        {
+            try
+            {
+                double angleDiff = (double)(op2.ThetaRadians.Value - op1.ThetaRadians.Value);
+                return op1.R.Value * op2.R.Value * Math.Cos(angleDiff);
+            }
+            catch
+            {
+                return null;
+            }
+        }
         #endregion
 
         public override string ToString()

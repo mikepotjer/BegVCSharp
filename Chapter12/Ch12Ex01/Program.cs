@@ -16,6 +16,7 @@ namespace Ch12Ex01
 
             WriteLine($"{v1} + {v2} = {v1 + v2}");
             WriteLine($"{v1} - {v2} = {v1 - v2}");
+            WriteLine($"{v1} * {v2} = {v1 * v2}");
             ReadKey();
         }
 
