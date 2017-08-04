@@ -9,6 +9,10 @@ namespace Ch13CardLib
     // reference to the same object.
     public class Deck : ICloneable
     {
+        // Add an event that will allow subscribers to reshuffle the deck when the last
+        // card is drawn.
+        public event EventHandler LastCardDrawn;
+
         // Create a field based on the new Cards collection class to manage the deck.
         private Cards cards = new Cards();
 
@@ -84,7 +88,13 @@ namespace Ch13CardLib
         public Card GetCard(int cardNum)
         {
             if (cardNum >= 0 && cardNum <= 51)
+            {
+                // Raise an event when the last card is drawn.
+                if ((cardNum == 51) && (LastCardDrawn != null))
+                    LastCardDrawn(this, EventArgs.Empty);
+
                 return cards[cardNum];
+            }
             else
                 throw new CardOutOfRangeException(cards.Clone() as Cards);
         }
