@@ -83,7 +83,7 @@ namespace Ch13CardLib
         /// Retrieves a card from the deck based on its position in the deck
         /// </summary>
         /// <param name="cardNum">The position of the card within the deck. This is a number
-        /// betweeb 0 and 51.</param>
+        /// between 0 and 51.</param>
         /// <returns>A reference to the Card object in the specified position.</returns>
         public Card GetCard(int cardNum)
         {

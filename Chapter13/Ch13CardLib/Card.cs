@@ -7,7 +7,7 @@ namespace Ch13CardLib
 {
     // Include the ICloneable interface, to make it easy to get a copy of a card, rather than a
     // duplicate reference to the same card object.
-    public class Card : ICloneable
+    public class Card : ICloneable, IComparable<Card>
     {
         public readonly Rank rank;
         public readonly Suit suit;
@@ -54,6 +54,26 @@ namespace Ch13CardLib
         /// </summary>
         /// <returns>An object matching the current Card object.</returns>
         public object Clone() => MemberwiseClone();
+
+        /// <summary>
+        /// Performs a simple sort based on rank, ignoring suit.
+        /// </summary>
+        /// <param name="card">Another Card object to compare to this one.</param>
+        /// <returns>A positive integer if this card has a higher rank than the other card,
+        /// a negative integer if this card has a lower rank, and zero if they are the same rank.</returns>
+        public int CompareTo(Card card)
+        {
+            if (isAceHigh == false)
+                return this.rank - card.rank;
+            else if (this.rank == card.rank)
+                return 0;
+            else if (this.rank == Rank.Ace)
+                return 1;
+            else if (card.rank == Rank.Ace)
+                return -1;
+            else
+                return this.rank - card.rank;
+        }
 
         #region Operator overloads
         public static bool operator ==(Card card1, Card card2)

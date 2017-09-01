@@ -106,6 +106,8 @@ namespace Ch13CardClient
                     //Write out current player, player hand, and the card on the table.
                     WriteLine($"{players[currentPlayer].Name}'s turn.");
                     WriteLine("Current hand:");
+                    // Sort the player's hand before displaying it.
+                    players[currentPlayer].PlayHand.Sort(CardComparerSuit.Default);
                     foreach (Card card in players[currentPlayer].PlayHand)
                     {
                         WriteLine(card);
@@ -167,6 +169,8 @@ namespace Ch13CardClient
 
                     // Display new hand with cards numbered.
                     WriteLine("New hand:");
+                    // Sort the cards before displaying them to make the selection easier.
+                    players[currentPlayer].PlayHand.Sort(CardComparerSuit.Default);
                     for (int i = 0; i < players[currentPlayer].PlayHand.Count; i++)
                     {
                         WriteLine($"{i + 1}: {players[currentPlayer].PlayHand[i]}");
