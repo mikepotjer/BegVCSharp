@@ -13,8 +13,11 @@ namespace Ch13CardClient
         static void Main(string[] args)
         {
             // Display introduction.
-            WriteLine("BenjaminCards: a new and exciting card game.");
-            WriteLine("To win you must have 7 cards of the same suit in your hand.");
+            WriteLine("BenjaminCards: a new and exciting version of Rummy.");
+            WriteLine("To win you must have 2 sets of cards - a set of 3 and a set of 4.");
+            WriteLine("There are 2 types of sets:");
+            WriteLine("a) A set of 3 or 4 cards of the same rank (such as 2H, 2D, 2S)");
+            WriteLine("b) A sequence of 3 or 4 cards of the same suit (such as 3H, 4H, 5H, 6H)");
             WriteLine();
 
             // Prompt for number of players.
