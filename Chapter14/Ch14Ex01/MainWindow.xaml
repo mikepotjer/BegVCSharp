@@ -7,8 +7,16 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525" KeyDown="Window_KeyDown" PreviewKeyDown="Window_PreviewKeyDown">
     <Grid KeyDown="Grid_KeyDown" PreviewKeyDown="Grid_PreviewKeyDown">
-        <Button Content="Button" HorizontalAlignment="Left" Margin="221,124,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.307,0.7"/>
-        <Button x:Name="rotatedButton" Content="2nd Button" Width="75" Height="22" FontWeight="Bold" RenderTransformOrigin="0.5,0.5" KeyDown="rotatedButton_KeyDown" PreviewKeyDown="rotatedButton_PreviewKeyDown" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="95*"/>
+            <RowDefinition Height="224*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="112*"/>
+            <ColumnDefinition Width="405*"/>
+        </Grid.ColumnDefinitions>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.307,0.7" Grid.Column="0" Grid.Row="0"/>
+        <Button x:Name="rotatedButton" Content="2nd Button" Width="75" Height="22" FontWeight="Bold" RenderTransformOrigin="0.5,0.5" KeyDown="rotatedButton_KeyDown" PreviewKeyDown="rotatedButton_PreviewKeyDown" Grid.Column="1" Grid.Row="1" >
             <Button.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -18,5 +26,6 @@
                 </TransformGroup>
             </Button.RenderTransform>
         </Button>
+    <GridSplitter Grid.RowSpan="2" Width="3" BorderThickness="2" BorderBrush="Black" />
     </Grid>
 </Window>
