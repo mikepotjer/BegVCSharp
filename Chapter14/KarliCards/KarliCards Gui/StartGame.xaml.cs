@@ -39,6 +39,8 @@ namespace KarliCards_Gui
 
             InitializeComponent();
 
+            // When playing against the computer, only allow one player to be selected, otherwise
+            // allow multiples to be selected.
             if (_gameOptions.PlayAgainstComputer)
                 playerNamesListBox.SelectionMode = SelectionMode.Single;
             else
@@ -54,6 +56,42 @@ namespace KarliCards_Gui
                 okButton.IsEnabled = (playerNamesListBox.SelectedItems.Count == 1);
             else
                 okButton.IsEnabled = (playerNamesListBox.SelectedItems.Count == _gameOptions.NumberOfPlayers);
+        }
+
+        private void addNewPlayerButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Check if a non-empty string has been entered in the textbox. If so, add it to the
+            // list of player names.
+            if (!string.IsNullOrWhiteSpace(newPlayerTextBox.Text))
+                _gameOptions.AddPlayer(newPlayerTextBox.Text);
+            newPlayerTextBox.Text = string.Empty;
+        }
+
+        private void okButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Copy all the player names in the listbox to the players collection of the game
+            // options class.
+            foreach (string item in playerNamesListBox.SelectedItems)
+            {
+                _gameOptions.SelectPlayers.Add(item);
+            }
+
+            // Create the options file if it doesn't exist, or overwrite it if it does.
+            using (var stream = File.Open("GameOptions.xml", FileMode.Create))
+            {
+                // Generate XML from the GameOptions instance, writing it to the file.
+                var serializer = new XmlSerializer(typeof(GameOptions));
+                serializer.Serialize(stream, _gameOptions);
+            }
+            // Close the window.
+            Close();
+        }
+
+        private void cancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Clear the game settings and close the window.
+            _gameOptions = null;
+            Close();
         }
     }
 }

@@ -1,8 +1,8 @@
-﻿<Application x:Class="KarliCards_Gui.App"
+﻿<Application x:Class="Ch14Ex99.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:KarliCards_Gui"
-             StartupUri="StartGame.xaml">
+             xmlns:local="clr-namespace:Ch14Ex99"
+             StartupUri="MainWindow.xaml">
     <Application.Resources>
          
     </Application.Resources>

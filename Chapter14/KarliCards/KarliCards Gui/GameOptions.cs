@@ -68,6 +68,7 @@ namespace KarliCards_Gui
 
         public void AddPlayer(string playerName)
         {
+            // Check for duplicates.
             if (_playerNames.Contains(playerName))
                 return;
 

@@ -1,0 +1,33 @@
+﻿<Window x:Class="Ch14Ex99.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Ch14Ex99"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="725">
+    <Grid>
+        <ScrollViewer HorizontalAlignment="Left" Height="200" Margin="10,10,0,0" VerticalAlignment="Top" Width="320" 
+                      VerticalScrollBarVisibility="Auto">
+            <TextBlock TextWrapping="Wrap" Text="{Binding Path=TextBlockContent}"/>
+        </ScrollViewer>
+        <Slider HorizontalAlignment="Left" Margin="380,20,0,0" VerticalAlignment="Top" Width="280" Name="mySlider"
+                Minimum="{Binding Path=MinValue}"
+                Maximum="{Binding Path=MaxValue}"
+                Value="{Binding Path=CurrentValue}"/>
+        <ProgressBar HorizontalAlignment="Left" Height="15" Margin="-1,160,0,0" VerticalAlignment="Top" Width="705"
+                     Minimum="{Binding Minimum, ElementName=mySlider}"
+                     Maximum="{Binding ElementName=mySlider, Path=Maximum}"
+                     Value="{Binding ElementName=mySlider, Path=Value}" RenderTransformOrigin="0.5,0.5">
+            <ProgressBar.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-20.301"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </ProgressBar.RenderTransform>
+        </ProgressBar>
+
+    </Grid>
+</Window>
