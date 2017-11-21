@@ -54,14 +54,22 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CardControl.xaml.cs">
+      <DependentUpon>CardControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GameClient.xaml.cs">
       <DependentUpon>GameClient.xaml</DependentUpon>
     </Compile>
     <Compile Include="InverseBoolConverter.cs" />
+    <Compile Include="RankNameConverter.cs" />
     <Compile Include="StartGame.xaml.cs">
       <DependentUpon>StartGame.xaml</DependentUpon>
     </Compile>
     <Page Include="About.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CardControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -124,7 +132,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Chapter13\Ch13CardLib\Ch13CardLib.csproj">
+      <Project>{693ef501-3527-4b44-a9e5-0f068664a942}</Project>
+      <Name>Ch13CardLib</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Banner.png" />
     <Resource Include="Images\base_floppydisk_32.png" />
