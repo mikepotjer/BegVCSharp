@@ -23,6 +23,7 @@ namespace KarliCards_Gui
         {
             InitializeComponent();
 
+            // This temporary code generates CardControl objects for all the cards in a deck.
             var position = new Point(15, 15);
             for (var i = 0; i < 4; i++)
             {
@@ -31,7 +32,7 @@ namespace KarliCards_Gui
                 for (int rank = 1; rank < 14; rank++)
                 {
                     position.Y += 30;
-                    var card = new CardControl(new Ch13CardLib.Card((Ch13CardLib.Suit)suit, (Ch13CardLib.Rank)rank));
+                    var card = new CardControl(new Ch13CardLib.Card(suit, (Ch13CardLib.Rank)rank));
                     card.VerticalAlignment = VerticalAlignment.Top;
                     card.HorizontalAlignment = HorizontalAlignment.Left;
                     card.Margin = new Thickness(position.X, position.Y, 0, 0);

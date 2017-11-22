@@ -7,7 +7,12 @@
              mc:Ignorable="d" 
              Height="154" Width="100" Name="UserControl">
     <UserControl.Resources>
+        <!-- Make the RankNameConverter class available to this control by including it in
+        the resources.-->
         <local:RankNameConverter x:Key="rankConverter"/>
+        <!-- The data template specifies how to render the bound content for items in this
+        control. For enumerations, the name of the value will automatically be converted to
+        a string to display in the Text property of a TextBlock control. -->
         <DataTemplate x:Key="SuitTemplate">
             <TextBlock Text="{Binding}"/>
         </DataTemplate>
@@ -40,10 +45,14 @@
                 <DropShadowEffect Direction="145" BlurRadius="10" ShadowDepth="0"/>
             </Rectangle.Effect>
         </Rectangle>
+        <!-- This label is bound to the Suit property of the CardControl class -->
         <Label x:Name="SuitLabel"
                Content="{Binding Path=Suit, ElementName=UserControl, Mode=Default}"
                ContentTemplate="{DynamicResource SuitTemplate}"
                HorizontalAlignment="Center" VerticalAlignment="Center" Margin="8,51,8,60"/>
+        <!-- These 2 labels are bound to the Rank property of the CardControl class. They include
+        a value converter to convert the Rank enumeration to a string for display. Make sure the
+        RankLabel is displayed in front of everything else (ZIndex defaults to 0). -->
         <Label x:Name="RankLabel" Grid.ZIndex="1"
                Content="{Binding Path=Rank, ElementName=UserControl, Mode=Default, Converter={StaticResource ResourceKey=rankConverter}}"
                ContentTemplate="{DynamicResource SuitTemplate}"
@@ -53,6 +62,7 @@
                ContentTemplate="{DynamicResource SuitTemplate}"
                HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,8,8" RenderTransformOrigin="0.5,0.5">
             <Label.RenderTransform>
+                <!-- Flip this Rank label upside down (180 degrees rotation). -->
                 <RotateTransform Angle="180"/>
             </Label.RenderTransform>
         </Label>

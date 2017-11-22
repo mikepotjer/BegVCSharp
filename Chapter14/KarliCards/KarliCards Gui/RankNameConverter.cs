@@ -8,6 +8,10 @@ using System.Windows.Data;
 
 namespace KarliCards_Gui
 {
+    /// <summary>
+    /// The Rank is to be displayed as mix of names and numbers, so a ValueConverter is defined to
+    /// handle this.
+    /// </summary>
     [ValueConversion(typeof(Ch13CardLib.Rank), typeof(string))]
     public class RankNameConverter : IValueConverter
     {
@@ -16,6 +20,7 @@ namespace KarliCards_Gui
             int source = (int)value;
             if (source == 1 || source > 10)
             {
+                // For the values for Ace, Jack, Queen, and King, we want to display the name.
                 switch (source)
                 {
                     case 1:
@@ -31,6 +36,7 @@ namespace KarliCards_Gui
                 }
             }
             else
+                // For the rest of the Rank values, we want to display the digit (2, 3, 4, etc.)
                 return source.ToString();
         }
 
