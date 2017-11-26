@@ -22,24 +22,6 @@ namespace KarliCards_Gui
         public GameClient()
         {
             InitializeComponent();
-
-            // This temporary code generates CardControl objects for all the cards in a deck.
-            var position = new Point(15, 15);
-            for (var i = 0; i < 4; i++)
-            {
-                var suit = (Ch13CardLib.Suit)i;
-                position.Y = 15;
-                for (int rank = 1; rank < 14; rank++)
-                {
-                    position.Y += 30;
-                    var card = new CardControl(new Ch13CardLib.Card(suit, (Ch13CardLib.Rank)rank));
-                    card.VerticalAlignment = VerticalAlignment.Top;
-                    card.HorizontalAlignment = HorizontalAlignment.Left;
-                    card.Margin = new Thickness(position.X, position.Y, 0, 0);
-                    contentGrid.Children.Add(card);
-                }
-                position.X += 112;
-            }
         }
 
         /// <summary>
@@ -53,6 +35,12 @@ namespace KarliCards_Gui
                 e.CanExecute = true;
             if (e.Command == ApplicationCommands.Save)
                 e.CanExecute = false;
+            if (e.Command == GameViewModel.StartGameCommand)
+                e.CanExecute = true;
+            if (e.Command == GameOptions.OptionsCommand)
+                e.CanExecute = true;
+            if (e.Command == GameViewModel.ShowAboutCommand)
+                e.CanExecute = true;
             e.Handled = true;
         }
 
@@ -65,6 +53,45 @@ namespace KarliCards_Gui
         {
             if (e.Command == ApplicationCommands.Close)
                 this.Close();
+            if (e.Command == GameViewModel.StartGameCommand)
+            {
+                var model = new GameViewModel();
+
+                // Instantiate the start game dialog.
+                StartGame startGameDialog = new StartGame();
+
+                // Load the game options, and set them as the data context for the start game window.
+                var options = GameOptions.Create();
+                startGameDialog.DataContext = options;
+
+                // Display the start game dialog.
+                var result = startGameDialog.ShowDialog();
+                if (result.HasValue && result.Value == true)
+                {
+                    // The user clicked OK on the start game dialog, so save the options, tell the
+                    // model to start a new game, and set the model as the data context for the game
+                    // client window.
+                    options.Save();
+                    model.StartNewGame();
+                    DataContext = model;
+                }
+            }
+            if (e.Command == GameOptions.OptionsCommand)
+            {
+                // Instantiate and display the options window.
+                var dialog = new Options();
+                var result = dialog.ShowDialog();
+
+                // If the user clicked OK in the options dialog, clear the current game.
+                if (result.HasValue && result.Value == true)
+                    DataContext = new GameViewModel();
+            }
+            if (e.Command == GameViewModel.ShowAboutCommand)
+            {
+                // Instantiate and display the about dialog.
+                var dialog = new About();
+                dialog.ShowDialog();
+            }
             e.Handled = true;
         }
     }

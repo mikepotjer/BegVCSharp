@@ -2,6 +2,10 @@
 using System.ComponentModel;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
+using System.Windows.Input;
+using System.Xml.Serialization;
+using Ch13CardLib;
 
 namespace KarliCards_Gui
 {
@@ -16,7 +20,7 @@ namespace KarliCards_Gui
         private ComputerSkillLevel _computerSkill = ComputerSkillLevel.Dumb;
         private ObservableCollection<string> _playerNames = new ObservableCollection<string>();
 
-        public List<string> SelectPlayers { get; set; }
+        public List<string> SelectedPlayers { get; set; }
 
         public int NumberOfPlayers
         {
@@ -63,7 +67,7 @@ namespace KarliCards_Gui
 
         public GameOptions()
         {
-            SelectPlayers = new List<string>();
+            SelectedPlayers = new List<string>();
         }
 
         public void AddPlayer(string playerName)
@@ -76,6 +80,38 @@ namespace KarliCards_Gui
             OnPropertyChanged("PlayerNames");
         }
 
+        /// <summary>
+        /// Saves the current settings of this class instance to a file.
+        /// </summary>
+        public void Save()
+        {
+            using (var stream = File.Open("GameOptions.xml", FileMode.Create))
+            {
+                var serializer = new XmlSerializer(typeof(GameOptions));
+                serializer.Serialize(stream, this);
+            }
+        }
+
+        /// <summary>
+        /// A static method to allow the class to create an instance of itself.
+        /// </summary>
+        /// <returns>A GameOptions instance containing any available existing settings.</returns>
+        public static GameOptions Create()
+        {
+            if (File.Exists("GameOptions.xml"))
+            {
+                // Read existing settings from the file.
+                using (var stream = File.OpenRead("GameOptions.xml"))
+                {
+                    var serializer = new XmlSerializer(typeof(GameOptions));
+                    return serializer.Deserialize(stream) as GameOptions;
+                }
+            }
+            else
+                // There are no saved settings, so create an instance using the default settings.
+                return new GameOptions();
+        }
+
         // We need to implement an event handler to send a notification when a property
         // changes.
         public event PropertyChangedEventHandler PropertyChanged;
@@ -83,13 +119,9 @@ namespace KarliCards_Gui
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-    }
 
-    [Serializable]
-    public enum ComputerSkillLevel
-    {
-        Dumb,
-        Good,
-        Cheats
+        // Set up a routed command to link to the GameClient UI. Set a shortcut key for the options item.
+        public static RoutedCommand OptionsCommand = new RoutedCommand("Show Options", typeof(GameOptions),
+            new InputGestureCollection(new List<InputGesture> { new KeyGesture(Key.O, ModifierKeys.Control) }));
     }
 }

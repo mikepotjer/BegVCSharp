@@ -4,12 +4,19 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KarliCards_Gui"
-        xmlns:src="clr-namespace:KarliCards_Gui"
         mc:Ignorable="d"
         Title="Karli Cards Game Client" WindowState="Maximized">
+    <!-- Instantiate a DataContext to ensure there is one available for the window, though we 
+    expect the StartGame command to replace it with a new instance. -->
+    <Window.DataContext>
+        <local:GameViewModel/>
+    </Window.DataContext>
     <Window.CommandBindings>
         <CommandBinding Command="ApplicationCommands.Close" CanExecute="CommandCanExecute" Executed="CommandExecuted"/>
         <CommandBinding Command="ApplicationCommands.Save" CanExecute="CommandCanExecute" Executed="CommandExecuted"/>
+        <CommandBinding Command="local:GameViewModel.StartGameCommand" CanExecute="CommandCanExecute" Executed="CommandExecuted"/>
+        <CommandBinding Command="local:GameViewModel.ShowAboutCommand" CanExecute="CommandCanExecute" Executed="CommandExecuted"/>
+        <CommandBinding Command="local:GameOptions.OptionsCommand" CanExecute="CommandCanExecute" Executed="CommandExecuted"/>
     </Window.CommandBindings>
     <Grid Background="Green">
         <Grid.RowDefinitions>
@@ -26,7 +33,9 @@
         <DockPanel Grid.Row="1" Margin="0">
             <Menu Background="Black" FontWeight="Bold" Foreground="White">
                 <MenuItem Header="_File" Foreground="White">
-                    <MenuItem Header="_New Game..." Height="22" Width="200" Foreground="Black"/>
+                    <!-- Link the New Game item to one of the custom command bindings defined above. -->
+                    <MenuItem Header="_New Game..." Height="22" Width="200" Foreground="Black"
+                              Command="local:GameViewModel.StartGameCommand"/>
                     <MenuItem Header="_Open" Width="200" Foreground="Black"/>
                     <MenuItem Header="_Save" Width="200" Foreground="Black" Command="Save">
                         <MenuItem.Icon>
@@ -40,10 +49,12 @@
                     <MenuItem Header="_Undo" HorizontalAlignment="Left" Width="145" Foreground="Black"/>
                 </MenuItem>
                 <MenuItem Header="_Tools" Background="Black" Foreground="White">
-                    <MenuItem Header="_Options" HorizontalAlignment="Left" Width="145" Foreground="Black"/>
+                    <MenuItem Header="_Options" HorizontalAlignment="Left" Width="200" Foreground="Black"
+                              Command="local:GameOptions.OptionsCommand"/>
                 </MenuItem>
                 <MenuItem Header="Help" Background="Black" Foreground="White">
-                    <MenuItem Header="_About" HorizontalAlignment="Left" Width="145" Foreground="Black"/>
+                    <MenuItem Header="_About" HorizontalAlignment="Left" Width="145" Foreground="Black"
+                              Command="local:GameViewModel.ShowAboutCommand"/>
                 </MenuItem>
             </Menu>
         </DockPanel>

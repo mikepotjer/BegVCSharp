@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Windows;
 using System.Xml.Serialization;
+using Ch13CardLib;
 
 namespace KarliCards_Gui
 {
@@ -13,24 +14,9 @@ namespace KarliCards_Gui
 
         public Options()
         {
-            if (_gameOptions == null)
-            {
-                // No game options have been loaded yet, so check if an options file exists.
-                if (File.Exists("GameOptions.xml"))
-                {
-                    // The options file exists, so read the settings from it.
-                    using (var stream = File.OpenRead("GameOptions.xml"))
-                    {
-                        // Read the XML from the file, and generate a GameOptions instance
-                        // from it.
-                        var serializer = new XmlSerializer(typeof(GameOptions));
-                        _gameOptions = serializer.Deserialize(stream) as GameOptions;
-                    }
-                }
-                else
-                    // The options file doesn't exist, so we need to load a new options class.
-                    _gameOptions = new GameOptions();
-            }
+            // The GameOptions class has a static method that handles loading the options and
+            // creating an instance of itself.
+            _gameOptions = GameOptions.Create();
 
             // This allows controls to bind to an instance of this object just by specifying the
             // property to use in the binding.
@@ -56,14 +42,12 @@ namespace KarliCards_Gui
 
         private void okButton_Click(object sender, RoutedEventArgs e)
         {
-            // Create the options file if it doesn't exist, or overwrite it if it does.
-            using (var stream = File.Open("GameOptions.xml", FileMode.Create))
-            {
-                // Generate XML from the GameOptions instance, writing it to the file.
-                var serializer = new XmlSerializer(typeof(GameOptions));
-                serializer.Serialize(stream, _gameOptions);
-            }
-            // Close the window.
+
+            // The GameOptions class can save its own settings.
+            _gameOptions.Save();
+
+            // Set the return value for the window, and close it.
+            DialogResult = true;
             Close();
         }
 
