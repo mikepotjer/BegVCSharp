@@ -87,14 +87,25 @@ namespace KarliCards_Gui
             control.RedrawCards();
         }
 
+        /// <summary>
+        /// Handles redrawing the cards when the state of a player changes, but is also used to
+        /// control some computer player actions.
+        /// </summary>
+        /// <param name="source">A CardsInHandControl object.</param>
+        /// <param name="e"></param>
         private static void OnPlayerStateChanged(DependencyObject source, DependencyPropertyChangedEventArgs e)
         {
             var control = source as CardsInHandControl;
+
+            // Check if this is a computer player, and if so, we need to initiate some actions
+            // for this player.
             var computerPlayer = control.Owner as ComputerPlayer;
             if (computerPlayer != null)
             {
                 if (computerPlayer.State == PlayerState.MustDiscard)
                 {
+                    // The computer player needs to discard, so initiate that action, specifying
+                    // a delegate method to execute on a separate thread.
                     Thread delayedWorker = new Thread(control.DelayDiscard);
                     delayedWorker.Start(new Payload
                     {
@@ -105,6 +116,7 @@ namespace KarliCards_Gui
                 }
                 else if (computerPlayer.State == PlayerState.Active)
                 {
+                    // The computer player needs to draw a card, so initiate that action.
                     Thread delayedWorker = new Thread(control.DelayDraw);
                     delayedWorker.Start(new Payload
                     {
@@ -123,6 +135,9 @@ namespace KarliCards_Gui
             control.RedrawCards();
         }
 
+        /// <summary>
+        /// Class used to pass data to a worker thread.
+        /// </summary>
         private class Payload
         {
             public Deck Deck { get; set; }
@@ -130,16 +145,26 @@ namespace KarliCards_Gui
             public ComputerPlayer Player { get; set; }
         }
 
+        /// <summary>
+        /// Draws a card for the computer player.
+        /// </summary>
+        /// <param name="payload"></param>
         private void DelayDraw(object payload)
         {
             Thread.Sleep(1250);
             var data = payload as Payload;
+            // Execute the ComputerPlayer's PerformDraw() method, which takes 2 parameters.
+            // Using the Dispatcher ensures the calls are made on the GUI thread.
             Dispatcher.Invoke(DispatcherPriority.Normal,
-                new Action<Deck>(data.Player.PerformDiscard),
+                new Action<Deck, Card>(data.Player.PerformDraw),
                 data.Deck,
                 data.AvailableCard);
         }
 
+        /// <summary>
+        /// Discards a card for the computer player.
+        /// </summary>
+        /// <param name="payload"></param>
         private void DelayDiscard(object payload)
         {
             Thread.Sleep(1250);
@@ -149,9 +174,15 @@ namespace KarliCards_Gui
                 data.Deck);
         }
 
+        /// <summary>
+        /// Re-paints the cards for this hand.
+        /// </summary>
         private void RedrawCards()
         {
+            // Reset the contents of the control.
             CardSurface.Children.Clear();
+
+            // If there is no player for this hand, make sure the name is cleared and exit.
             if (Owner == null)
             {
                 PlayerNameLabel.Content = string.Empty;
@@ -161,15 +192,21 @@ namespace KarliCards_Gui
             DrawCards();
         }
 
+        /// <summary>
+        /// Draws (or paints) the cards in the current player's hand.
+        /// </summary>
         private void DrawCards()
         {
+            // If the player isn't active, the cards will not be face up.
             bool isFaceup = (Owner.State != PlayerState.Inactive);
 
+            // Display the computer player's hand when the game ends.
             if (Owner is ComputerPlayer)
                 isFaceup = (Owner.State == PlayerState.Loser || Owner.State == PlayerState.Winner);
 
             var cards = Owner.GetCards();
 
+            // If the player doesn't have any cards, there's nothing to do.
             if (cards == null || cards.Count == 0)
                 return;
 
@@ -182,12 +219,17 @@ namespace KarliCards_Gui
                 else
                     cardControl.Margin = new Thickness(5, 35 + i * 30, 0, 0);
 
+                // Connect a double-click event handler to each card, and orient the cards face-up
+                // or face-down depending on the setting determined above.
                 cardControl.MouseDoubleClick += cardControl_MouseDoubleClick;
                 cardControl.IsFaceUp = isFaceup;
                 CardSurface.Children.Add(cardControl);
             }
         }
 
+        /// <summary>
+        /// Draws the player's name on the control.
+        /// </summary>
         private void DrawPlayerName()
         {
             if (Owner.State == PlayerState.Winner || Owner.State == PlayerState.Loser)
@@ -197,6 +239,7 @@ namespace KarliCards_Gui
 
             var isActivePlayer = (Owner.State == PlayerState.Active || Owner.State == PlayerState.MustDiscard);
 
+            // Change the font size and color for the active player.
             PlayerNameLabel.FontSize = isActivePlayer ? 18 : 14;
             PlayerNameLabel.Foreground = isActivePlayer ? new SolidColorBrush(Colors.Gold) : new SolidColorBrush(Colors.White);
         }
@@ -205,11 +248,15 @@ namespace KarliCards_Gui
         {
             var selectedCard = sender as CardControl;
 
+            // If there's no player for this hand, do nothing.
             if (Owner == null)
                 return;
+
+            // If this player has to discard, then discard the card that was clicked.
             if (Owner.State == PlayerState.MustDiscard)
                 Owner.DiscardCard(selectedCard.Card);
 
+            // Re-paint the hand after the discard.
             RedrawCards();
         }
     }
