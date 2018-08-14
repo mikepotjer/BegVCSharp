@@ -25,21 +25,6 @@ namespace KarliCards_Gui
             InitializeComponent();
         }
 
-        private void dumbAIRadioButton_Checked(object sender, RoutedEventArgs e)
-        {
-            _gameOptions.ComputerSkill = ComputerSkillLevel.Dumb;
-        }
-
-        private void goodAIRadioButton_Checked(object sender, RoutedEventArgs e)
-        {
-            _gameOptions.ComputerSkill = ComputerSkillLevel.Good;
-        }
-
-        private void cheatingAIRadioButton_Checked(object sender, RoutedEventArgs e)
-        {
-            _gameOptions.ComputerSkill = ComputerSkillLevel.Cheats;
-        }
-
         private void okButton_Click(object sender, RoutedEventArgs e)
         {
 

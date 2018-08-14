@@ -18,6 +18,7 @@ namespace KarliCards_Gui
         private bool _playAgainstComputer = true;
         private int _numberOfPlayers = 2;
         private ComputerSkillLevel _computerSkill = ComputerSkillLevel.Dumb;
+        private bool _computerPlaysWithOpenHand;
         private ObservableCollection<string> _playerNames = new ObservableCollection<string>();
 
         public List<string> SelectedPlayers { get; set; }
@@ -52,6 +53,16 @@ namespace KarliCards_Gui
             {
                 _computerSkill = value;
                 OnPropertyChanged(nameof(ComputerSkill));
+            }
+        }
+
+        public bool ComputerPlaysWithOpenHand
+        {
+            get { return _computerPlaysWithOpenHand; }
+            set
+            {
+                _computerPlaysWithOpenHand = value;
+                OnPropertyChanged(nameof(ComputerPlaysWithOpenHand));
             }
         }
 

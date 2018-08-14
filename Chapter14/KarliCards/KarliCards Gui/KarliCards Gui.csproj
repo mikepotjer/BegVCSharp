@@ -60,6 +60,7 @@
     <Compile Include="CardsInHandControl.xaml.cs">
       <DependentUpon>CardsInHandControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ComputerSkillValueConverter.cs" />
     <Compile Include="GameClient.xaml.cs">
       <DependentUpon>GameClient.xaml</DependentUpon>
     </Compile>

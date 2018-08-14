@@ -80,6 +80,13 @@ namespace KarliCards_Gui
 
         private GameOptions _gameOptions;
 
+        // Define a public property to retrieve the game options setting indicating whether
+        // the computer is playing with an open hand.
+        public bool ComputerPlaysWithOpenHand
+        {
+            get { return _gameOptions.ComputerPlaysWithOpenHand; }
+        }
+
         /// <summary>
         /// A default constructor to initialize a couple of the fields.
         /// </summary>

@@ -81,6 +81,19 @@ namespace KarliCards_Gui
             typeof(CardsInHandControl), 
             new PropertyMetadata(Orientation.Horizontal, new PropertyChangedCallback(OnPlayerOrientationChanged)));
 
+        public bool ComputerPlaysWithOpenHand
+        {
+            get { return (bool)GetValue(ComputerPlaysWithOpenHandProperty); }
+            set { SetValue(ComputerPlaysWithOpenHandProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for ComputerPlaysWithOpenHand. This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ComputerPlaysWithOpenHandProperty = DependencyProperty.Register(
+            "ComputerPlaysWithOpenHand",
+            typeof(bool),
+            typeof(CardsInHandControl),
+            new PropertyMetadata(false));
+
         private static void OnOwnerChanged(DependencyObject source, DependencyPropertyChangedEventArgs e)
         {
             var control = source as CardsInHandControl;
@@ -200,9 +213,12 @@ namespace KarliCards_Gui
             // If the player isn't active, the cards will not be face up.
             bool isFaceup = (Owner.State != PlayerState.Inactive);
 
-            // Display the computer player's hand when the game ends.
+            // Display the computer player's hand when the game ends, or if the computer is
+            // playing with an open hand.
             if (Owner is ComputerPlayer)
-                isFaceup = (Owner.State == PlayerState.Loser || Owner.State == PlayerState.Winner);
+                isFaceup = (Owner.State == PlayerState.Loser 
+                    || Owner.State == PlayerState.Winner
+                    || ComputerPlaysWithOpenHand);
 
             var cards = Owner.GetCards();
 

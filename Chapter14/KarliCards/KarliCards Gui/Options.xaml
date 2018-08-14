@@ -8,6 +8,7 @@
         Title="Options" Height="345" Width="434" ResizeMode="NoResize">
     <Window.Resources>
         <local:InverseBoolConverter x:Key="inverseBool"/>
+        <local:ComputerSkillValueConverter x:Key="skillConverter"/>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -42,13 +43,22 @@
                 </TabItem>
                 <TabItem Header="Computer Player">
                     <Grid Background="#FFE5E5E5">
-                        <Label Content="Skill Level" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-                        <RadioButton Content="Dumb" HorizontalAlignment="Left" Margin="37,41,0,0" VerticalAlignment="Top"
-                                     IsChecked="True" Name="dumbAIRadioButton" Checked="dumbAIRadioButton_Checked"/>
-                        <RadioButton Content="Good" HorizontalAlignment="Left" Margin="37,62,0,0" VerticalAlignment="Top"
-                                     Name="goodAIRadioButton" Checked="goodAIRadioButton_Checked"/>
-                        <RadioButton Content="Cheats" HorizontalAlignment="Left" Margin="37,83,0,0" VerticalAlignment="Top"
-                                     Name="cheatingAIRadioButton" Checked="cheatingAIRadioButton_Checked"/>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="7*"/>
+                            <ColumnDefinition Width="127*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Content="Skill Level" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+                        <RadioButton Content="Dumb" HorizontalAlignment="Left" Margin="15.602,41,0,0" VerticalAlignment="Top"
+                                     Name="dumbAIRadioButton" IsChecked="{Binding ComputerSkill, Converter={StaticResource skillConverter},
+                                     ConverterParameter=Dumb}" Grid.Column="1"/>
+                        <RadioButton Content="Good" HorizontalAlignment="Left" Margin="15.602,62,0,0" VerticalAlignment="Top"
+                                     Name="goodAIRadioButton" IsChecked="{Binding ComputerSkill, Converter={StaticResource skillConverter},
+                                     ConverterParameter=Good}" Grid.Column="1"/>
+                        <RadioButton Content="Cheats" HorizontalAlignment="Left" Margin="15.602,83,0,0" VerticalAlignment="Top"
+                                     Name="cheatingAIRadioButton" IsChecked="{Binding ComputerSkill, Converter={StaticResource skillConverter},
+                                     ConverterParameter=Cheats}" Grid.Column="1"/>
+                        <CheckBox Content="Plays with open cards" HorizontalAlignment="Left" Margin="10,110,0,0" 
+                                  VerticalAlignment="Top" Grid.ColumnSpan="2" IsChecked="{Binding ComputerPlaysWithOpenHand}" />
                     </Grid>
                 </TabItem>
             </TabControl>
