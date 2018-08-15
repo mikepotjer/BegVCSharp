@@ -216,9 +216,11 @@ namespace KarliCards_Gui
             // Display the computer player's hand when the game ends, or if the computer is
             // playing with an open hand.
             if (Owner is ComputerPlayer)
-                isFaceup = (Owner.State == PlayerState.Loser 
+                isFaceup = (Owner.State == PlayerState.Loser
                     || Owner.State == PlayerState.Winner
                     || ComputerPlaysWithOpenHand);
+                    // This condition will work, too, if the XAML binding isn't setup.
+                    //|| Game == null ? true : Game.ComputerPlaysWithOpenHand);
 
             var cards = Owner.GetCards();
 

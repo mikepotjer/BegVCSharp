@@ -61,23 +61,25 @@
         <DockPanel Grid.Row="2">
             <!-- CardsInHandControl handles the presentation of each players hand. The control has 4 dependency
             properties that are bound here. The Game property is bound to the data context above, which is a 
-            GameViewModel object. -->
+            GameViewModel object. Note that since the GameViewModel is the DataContext for the control, we can
+            bind directly to ComputerPlaysWithOpenHand. It does NOT work to bind to GameOptions.ComputerPlaysWithOpenHand
+            as the book says. -->
             <local:CardsInHandControl x:Name="Player1Hand" DockPanel.Dock="Top" HorizontalAlignment="Center" VerticalAlignment="Top"
                                       Height="154" Width="380" PlayerOrientation="Horizontal"
-                                      Owner="{Binding Players[0]}" PlayerState="{Binding Players[0].State}"
-                                      ComputerPlaysWithOpenHand="{Binding GameOptions.ComputerPlaysWithOpenHand}" Game="{Binding}"/>
+                                      Owner="{Binding Players[0]}" PlayerState="{Binding Players[0].State}" Game="{Binding}"
+                                      ComputerPlaysWithOpenHand="{Binding ComputerPlaysWithOpenHand}"/>
             <local:CardsInHandControl x:Name="Player2Hand" DockPanel.Dock="Right" VerticalAlignment="Center" 
                                       Height="380" Width="180" PlayerOrientation="Vertical"
-                                      Owner="{Binding Players[1]}" PlayerState="{Binding Players[1].State}"
-                                      ComputerPlaysWithOpenHand="{Binding GameOptions.ComputerPlaysWithOpenHand}" Game="{Binding}"/>
+                                      Owner="{Binding Players[1]}" PlayerState="{Binding Players[1].State}" Game="{Binding}"
+                                      ComputerPlaysWithOpenHand="{Binding ComputerPlaysWithOpenHand}"/>
             <local:CardsInHandControl x:Name="Player3Hand" DockPanel.Dock="Bottom" HorizontalAlignment="Center" VerticalAlignment="Top" 
                                       Height="154" Width="380" PlayerOrientation="Horizontal"
-                                      Owner="{Binding Players[2]}" PlayerState="{Binding Players[2].State}"
-                                      ComputerPlaysWithOpenHand="{Binding GameOptions.ComputerPlaysWithOpenHand}" Game="{Binding}"/>
+                                      Owner="{Binding Players[2]}" PlayerState="{Binding Players[2].State}" Game="{Binding}"
+                                      ComputerPlaysWithOpenHand="{Binding ComputerPlaysWithOpenHand}"/>
             <local:CardsInHandControl x:Name="Player4Hand" DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalAlignment="Center"
                                       Height="380" Width="180" PlayerOrientation="Vertical"
-                                      Owner="{Binding Players[3]}" PlayerState="{Binding Players[3].State}"
-                                      ComputerPlaysWithOpenHand="{Binding GameOptions.ComputerPlaysWithOpenHand}" Game="{Binding}"/>
+                                      Owner="{Binding Players[3]}" PlayerState="{Binding Players[3].State}" Game="{Binding}"
+                                      ComputerPlaysWithOpenHand="{Binding ComputerPlaysWithOpenHand}"/>
             <!-- GameDecksControl handles the presentation of the game deck and discard pile. It has 4 dependency properties
             that are bound here. -->
             <local:GameDecksControl x:Name="GameDecks" Height="180"
@@ -86,5 +88,11 @@
                                     CurrentPlayer="{Binding CurrentPlayer}"
                                     GameStarted="{Binding GameStarted}"/>
         </DockPanel>
+        <StatusBar Grid.Row="3" HorizontalAlignment="Center" Margin="0,0,0,15" VerticalAlignment="Center"
+                   Background="Green" Foreground="White" FontWeight="Bold">
+            <StatusBarItem VerticalAlignment="Center">
+                <TextBlock Text="{Binding CurrentStatusText}"/>
+            </StatusBarItem>
+        </StatusBar>
     </Grid>
 </Window>

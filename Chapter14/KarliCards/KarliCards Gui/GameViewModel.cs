@@ -23,6 +23,22 @@ namespace KarliCards_Gui
             {
                 _currentPlayer = value;
                 OnPropertyChanged(nameof(CurrentPlayer));
+
+                // Update the status text when the current player changes.
+                if (!Players.Any(x => x.State == PlayerState.Winner))
+                {
+                    // No player has won yet, so set the status to indicate the current active player
+                    // is ready.
+                    Players.ForEach(x => x.State = (x == value ? PlayerState.Active : PlayerState.Inactive));
+                    CurrentStatusText = $"Player {CurrentPlayer.PlayerName} ready";
+                }
+                else
+                {
+                    // We have a winner, so set the status to display the name of the winning player.
+                    var winner = Players.Where(x => x.HasWon).FirstOrDefault();
+                    if (winner != null)
+                        CurrentStatusText = $"Player {winner.PlayerName} has WON";
+                }
             }
         }
 
@@ -78,6 +94,19 @@ namespace KarliCards_Gui
             }
         }
 
+        // Define a field and public property store the current status of the game, and
+        // fire an event when the status changes.
+        private string _currentStatusText = "Game is not started";
+        public string CurrentStatusText
+        {
+            get { return _currentStatusText; }
+            set
+            {
+                _currentStatusText = value;
+                OnPropertyChanged(nameof(CurrentStatusText));
+            }
+        }
+
         private GameOptions _gameOptions;
 
         // Define a public property to retrieve the game options setting indicating whether
@@ -108,6 +137,7 @@ namespace KarliCards_Gui
             CreatePlayers();
             InitializeGame();
             GameStarted = true;
+            CurrentStatusText = string.Format("New game started. Player {0} to start", CurrentPlayer.PlayerName);
         }
 
         /// <summary>
