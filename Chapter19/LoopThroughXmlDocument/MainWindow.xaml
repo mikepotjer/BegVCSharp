@@ -1,0 +1,29 @@
+﻿<Window x:Class="LoopThroughXmlDocument.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LoopThroughXmlDocument"
+        mc:Ignorable="d"
+        Title="XML Nodes" Height="300" Width="500">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="100"/>
+        </Grid.ColumnDefinitions>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <TextBlock Name="textBlockResults" HorizontalAlignment="Left" Margin="5" TextWrapping="Wrap" 
+                       Text="XML content will be displayed here" VerticalAlignment="Top"/>
+        </ScrollViewer>
+        <Button Name="buttonLoop" Content="Loop" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top" 
+                Width="80" Margin="5" Click="ButtonLoop_Click"/>
+        <Button Name="buttonCreateNode" Content="Create" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top" 
+                Width="80" Margin="0,30,0,0" Click="ButtonCreateNode_Click"/>
+        <Button Name="buttonDeleteNode" Content="Delete" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top" 
+                Width="80" Margin="0,55,0,0" Click="ButtonDeleteNode_Click"/>
+        <Button Name="buttonXmlToJson" Content="XML > JSON" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top" 
+                Width="80" Margin="0,80,0,0" Click="ButtonXmlToJson_Click"/>
+        <Button Name="buttonJsonToXml" Content="JSON > XML" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top" 
+                Width="80" Margin="0,105,0,0" Click="ButtonJsonToXml_Click"/>
+    </Grid>
+</Window>
