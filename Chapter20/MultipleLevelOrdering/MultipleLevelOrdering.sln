@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2003
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultipleLevelOrdering", "MultipleLevelOrdering.csproj", "{C5D794AD-3664-4C3A-9592-2E3505500EDF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C5D794AD-3664-4C3A-9592-2E3505500EDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5D794AD-3664-4C3A-9592-2E3505500EDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5D794AD-3664-4C3A-9592-2E3505500EDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5D794AD-3664-4C3A-9592-2E3505500EDF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2D1368FD-6F45-43E2-9130-ED7554A6B24C}
+	EndGlobalSection
+EndGlobal
