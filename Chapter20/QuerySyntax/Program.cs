@@ -30,6 +30,11 @@ namespace QuerySyntax
                 WriteLine(item);
             }
 
+            WriteLine($"Count of names: {queryResults.Count()}");
+            // Max and Min are the only simple aggregates supported for strings.
+            WriteLine($"Max of names: {queryResults.Max()}");
+            WriteLine($"Min of names: {queryResults.Min()}");
+
             Write("Program finished, press Enter/Return to continue:");
             ReadLine();
         }

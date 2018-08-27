@@ -34,6 +34,7 @@ namespace LargeNumberQuery
 
                 WriteLine("\nNumeric Aggregates");
 
+                // orderby makes this drastically slower at the highest result sizes.
                 var queryResults2 =
                     from n in numbers
                     where n > 1000
