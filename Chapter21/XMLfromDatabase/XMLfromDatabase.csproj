@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{06AC8C50-0F31-4A2D-83B8-213D291690E4}</ProjectGuid>
+    <ProjectGuid>{09E7F8A7-BDBE-4F98-9754-B9A8AB8CA29C}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>DatabaseRelations</RootNamespace>
-    <AssemblyName>DatabaseRelations</AssemblyName>
+    <RootNamespace>XMLfromDatabase</RootNamespace>
+    <AssemblyName>XMLfromDatabase</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -42,6 +42,8 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -50,13 +52,58 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Book.cs">
+      <DependentUpon>BookContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BookContext.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BookContext.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BookContext.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BookContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BookContext.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BookContext.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Stock.cs">
+      <DependentUpon>BookContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Store.cs">
+      <DependentUpon>BookContext.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <EntityDeploy Include="BookContext.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>BookContext.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="BookContext.edmx.diagram">
+      <DependentUpon>BookContext.edmx</DependentUpon>
+    </None>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="BookContext.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>BookContext.edmx</DependentUpon>
+      <LastGenOutput>BookContext.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="BookContext.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>BookContext.edmx</DependentUpon>
+      <LastGenOutput>BookContext.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
