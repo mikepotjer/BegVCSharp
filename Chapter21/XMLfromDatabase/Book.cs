@@ -17,7 +17,7 @@ namespace XMLfromDatabase
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Book()
         {
-            this.Stocks = new HashSet<Stock>();
+            this.Inventory = new HashSet<Stock>();
         }
     
         public int Code { get; set; }
@@ -25,6 +25,6 @@ namespace XMLfromDatabase
         public string Author { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Stock> Stocks { get; set; }
+        public virtual ICollection<Stock> Inventory { get; set; }
     }
 }

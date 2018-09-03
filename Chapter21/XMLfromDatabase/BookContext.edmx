@@ -80,7 +80,7 @@
           <Property Name="Code" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Author" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Stocks" Relationship="Self.FK_dbo_Stocks_dbo_Books_Item_Code" FromRole="Books" ToRole="Stocks" />
+          <NavigationProperty Name="Inventory" Relationship="Self.FK_dbo_Stocks_dbo_Books_Item_Code" FromRole="Books" ToRole="Stocks" />
         </EntityType>
         <EntityType Name="Stock">
           <Key>
@@ -91,7 +91,7 @@
           <Property Name="OnOrder" Type="Int32" Nullable="false" />
           <Property Name="Item_Code" Type="Int32" />
           <Property Name="Store_StoreID" Type="Int32" />
-          <NavigationProperty Name="Book" Relationship="Self.FK_dbo_Stocks_dbo_Books_Item_Code" FromRole="Stocks" ToRole="Books" />
+          <NavigationProperty Name="Item" Relationship="Self.FK_dbo_Stocks_dbo_Books_Item_Code" FromRole="Stocks" ToRole="Books" />
           <NavigationProperty Name="Store" Relationship="Self.FK_dbo_Stocks_dbo_Stores_Store_StoreID" FromRole="Stocks" ToRole="Stores" />
         </EntityType>
         <EntityType Name="Store">
@@ -101,7 +101,7 @@
           <Property Name="StoreID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Stocks" Relationship="Self.FK_dbo_Stocks_dbo_Stores_Store_StoreID" FromRole="Stores" ToRole="Stocks" />
+          <NavigationProperty Name="Inventory" Relationship="Self.FK_dbo_Stocks_dbo_Stores_Store_StoreID" FromRole="Stores" ToRole="Stocks" />
         </EntityType>
         <Association Name="FK_dbo_Stocks_dbo_Books_Item_Code">
           <End Role="Books" Type="Self.Book" Multiplicity="0..1" />

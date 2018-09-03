@@ -26,14 +26,14 @@ namespace XMLfromDatabase
                     XElement storeElement = new XElement("store",
                             new XAttribute("name", s.Name),
                             new XAttribute("address", s.Address),
-                        from stock in s.Stocks
+                        from stock in s.Inventory
                         select new XElement("stock",
                                 new XAttribute("StockID", stock.StockID),
                                 new XAttribute("onHand", stock.OnHand),
                                 new XAttribute("onOrder", stock.OnOrder),
                             new XElement("book",
-                                new XAttribute("title", stock.Book.Title),
-                                new XAttribute("author", stock.Book.Author)
+                                new XAttribute("title", stock.Item.Title),
+                                new XAttribute("author", stock.Item.Author)
                                 )   // end book
                             )   // end stock
                         );  // end store

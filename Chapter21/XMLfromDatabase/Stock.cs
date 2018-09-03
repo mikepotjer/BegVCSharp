@@ -20,7 +20,7 @@ namespace XMLfromDatabase
         public Nullable<int> Item_Code { get; set; }
         public Nullable<int> Store_StoreID { get; set; }
     
-        public virtual Book Book { get; set; }
+        public virtual Book Item { get; set; }
         public virtual Store Store { get; set; }
     }
 }
